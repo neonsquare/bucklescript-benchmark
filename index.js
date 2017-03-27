@@ -14,16 +14,23 @@ function bench (name, n, fn) {
     return result
 }
 
-let b1 = bench("FriendsRe", 1000000, FriendsRe.friends)
-let b2 = bench("FriendsJS", 1000000, FriendsJS.friends)
-let b3 = bench("FriendsFJS", 1000000, FriendsFJS.friends)
+const N = 1000000
+console.log("Timings:\n")
+const b1_label = "friends Reason: (BuckleScript Records)"
+const b1 = bench(b1_label, N, FriendsRe.friends)
 
-console.log("\nFriendsRe computed results")
+const b2_label = "friends JS: (Object.assign)"
+const b2 = bench(b2_label, N, FriendsJS.friends)
+
+const b3_label = "friends JS: (Object mutation)"
+const b3 = bench(b3_label, N, FriendsFJS.friends)
+
+console.log("\n\n"+b1_label+" computed results:")
 b1.map(FriendsRe.printPerson)
 
-console.log("\nFriendsJS computed results")
+console.log("\n\n"+b2_label+" computed results:")
 b2.map(FriendsJS.printPerson)
 
-console.log("\nFriendsFJS computed results")
+console.log("\n\n"+b3_label+" computed results:")
 b3.map(FriendsFJS.printPerson)
 

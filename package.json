@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "build": "bsb",
-    "watch": "bsb -w",
+    "watch": "bsb -w"
   },
   "author": "Jochen H. Schmidt",
   "license": "MIT",

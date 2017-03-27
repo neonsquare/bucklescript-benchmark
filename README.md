@@ -7,27 +7,33 @@ To build the javascript code from the Reason-Code using Bucklescript just run `n
 To run the benchmark run `npm start`. The output should be similar to the following:
 
 ```
-FriendsRe: 991.739ms
-FriendsJS: 12001.444ms
-FriendsFJS: 2143.926ms
+Timings:
 
-FriendsRe computed results
+friends Reason: (BuckleScript Records): 1190.246ms
+friends JS: (Object.assign): 12876.599ms
+friends JS: (Object mutation): 2664.060ms
+
+
+friends Reason: (BuckleScript Records) computed results:
 Person John: Mary, Tom
 Person Sara: Mary, Tom
 Person Tom: Sara, John
 Person Mary: Sara, John
 
-FriendsJS computed results
+
+friends JS: (Object.assign) computed results:
 Person John: Mary, Tom
 Person Sara: Mary, Tom
 Person Tom: Sara, John
 Person Mary: Sara, John
 
-FriendsFJS computed results
+
+friends JS: (Object mutation) computed results:
 Person John: Tom, Mary
 Person Sara: Tom, Mary
 Person Tom: John, Sara
 Person Mary: John, Sara
+
 ```
 (Measured using Node.js v7.7.1 on a MacBook Pro Retina 2,3 GHz Intel Core i7, 16GB RAM)
 
