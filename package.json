@@ -1,0 +1,16 @@
+{
+  "name": "bucklescript-benchmark",
+  "version": "0.0.1",
+  "description": "A small benchmark comparing Bucklescript to plain JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "bsb",
+    "watch": "bsb -w",
+  },
+  "author": "Jochen H. Schmidt",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^1.6.0"
+  }
+}

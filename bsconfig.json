@@ -1,0 +1,8 @@
+{
+  "name": "bucklescript-benchmark",
+  "sources": [
+     {
+       "dir": "src"
+     }
+  ]
+}
