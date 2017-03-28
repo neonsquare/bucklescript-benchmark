@@ -39,13 +39,30 @@ Person Mary: John, Sara
 
 ## How realistic is such code?
 
-Functional programming patterns are more and more common in modern Javascript projects. Strictly controlling side effects is an important aspect in this. Operations like `Object.assign`, Object spread or Array spread are quite common as an ad hoc, quick way to implement immutable datastructures from plain javascript objects and arrays. This example shows that this can lead to bad performance compared to code that is compiled using a compiler that knows that its datastructures actually really are immutable.
+Functional programming patterns are more and more common in modern Javascript projects. Strictly controlling side effects is an important aspect when applying them. Directly modifying data structures makes it harder to follow the state flow of complex programs. So instead of this, a functional program makes use of immutable datastructures.
 
-The FriendsFJS variant demonstrates, that even a direct destructive modification of the Array within the person records themselves may not necessarily give better performance. It also isn't generating exactly the same result, because the order of the friends array ends up reversed.
+JavaScript objects are inherently optimized to get directly modified at runtime. Though, operations like `Object.assign` or Syntax extensions like Object spread or Array spread make it very easy to code in a style that implements immutable datastructures ad hoc from plain javascript objects and arrays. Typical use cases are state transformations implemented in Redux reducers. The example used in this benchmark uses this style to demonstrate how this can lead to bad performance compared to code that is compiled using a compiler that knows that its datastructures actually really are immutable a priori.
+
+The second JavaScript  variant demonstrates, that even a direct
+destructive modification of the Array within the person records
+themselves may not necessarily give better performance. It also isn't
+generating exactly the same result, because the order of the friends
+array ends up reversed.
 
 ## Where is the price?
 
-The representation BuckleScript compiles out of the Records enable this good performance, but are more difficult to handle in arbitrary JS code or within the debugger. You lose the easy runtime introspectability of plain javascript objects, which e.g. means  you do not directly see the names of the fields anymore. If you want to access such record instances from JavaScript you need to write accessor functions in BuckleScript.
+BuckleScript doesn't just map records directly on JavaScript objects. It instead  uses a representation of Arrays and any property access is compiled to simple array index accesses. This representation is the reason how the result can deliver such a good runtime performance. Also lists are not mapped 1:1 on Arrays! Their representation uses 2-element arrays where the first element is the list head and the 2nd element is the tail of the list:
+
+```
+[1,2,3,4]
+->
+[1, [2, [3, [4, 0]]]]
+```
+
+This makes pushing a new element onto a list a constant timed operation (just allocate a new "CONS-Pair" with the new head item and the old list as tail).
+
+On the other side: If records and lists are structured this way, they are more difficult to handle in arbitrary JS code or within a debugging session. You lose the easy runtime introspectability of plain javascript objects. Blunt said: you do not directly see the names of the fields anymore. If you want to access such record instances from JavaScript you need to write accessor functions in BuckleScript.
+
 
 --
 Jochen H. Schmidt
