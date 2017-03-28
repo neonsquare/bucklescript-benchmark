@@ -43,11 +43,13 @@ Functional programming patterns are more and more common in modern Javascript pr
 
 JavaScript objects are inherently optimized to get directly modified at runtime. Though, operations like `Object.assign` or Syntax extensions like Object spread or Array spread make it very easy to code in a style that implements immutable datastructures ad hoc from plain javascript objects and arrays. Typical use cases are state transformations implemented in Redux reducers. The example used in this benchmark uses this style to demonstrate how this can lead to bad performance compared to code that is compiled using a compiler that knows that its datastructures actually really are immutable a priori.
 
-The second JavaScript  variant demonstrates, that even a direct
-destructive modification of the Array within the person records
-themselves may not necessarily give better performance. It also isn't
-generating exactly the same result, because the order of the friends
-array ends up reversed.
+The second JavaScript  variant demonstrates, that even a direct destructive modification of the Array within the person records themselves may not necessarily give better performance. It also isn't generating exactly the same result, because the order of the friends array ends up reversed.
+
+This leads to an interesting outcome: While languages like TypeScript
+can use their static type system to offer better tooling or less
+runtime errors, they still are - by their whole definition -  bound to
+the mutative nature of JavaScript. A language like Reason with a
+compiler like BuckleScript has a much stricter definition. Those constraints open up the door to more freedom in optimizing code and choosing more efficient data structure representations.
 
 ## Where is the price?
 
