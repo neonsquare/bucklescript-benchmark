@@ -29,6 +29,8 @@ This variant doesn't behave immutable. Instead the inital person
 objects get modified directly and also the friends-Array is modified
 using `Array.push()` instead of `Array.spread()`.
 
+# Build and Run
+
 To build the javascript code from the Reason-Code using Bucklescript just run `npm run build`.
 
 To run the benchmark run `npm start`. The output should be similar to the following:
