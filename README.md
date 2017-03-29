@@ -78,7 +78,7 @@ interoperability with JS libs) - you can use the FFI (Foreign Function
 Interface) of BuckleScript. This FFI is what makes a big difference to
 languages like TypeScript: When writing pure BuckleScript
 (OCaml/Reason) code, the compiler is free to take any representation
-it likes, as all interoperability is restricted _within_ the languages
+it likes, as all interoperability is restricted _within_ the Reason/OCaml language
 semantics. With the FFI one interfaces the pure written code with the
 JavaScript runtime. This is where BuckleScript has to play by the 
 rules of its host language and accept the dynamic behaviour there.
