@@ -9,9 +9,9 @@ To run the benchmark run `npm start`. The output should be similar to the follow
 ```
 Timings:
 
-friends Reason: (BuckleScript Records): 1190.246ms
-friends JS: (Object.assign): 12876.599ms
-friends JS: (Object mutation): 2664.060ms
+friends Reason: (BuckleScript Records): 1027.289ms
+friends JS: (Object.assign): 12000.872ms
+friends JS: (Object mutation): 2444.924ms
 
 
 friends Reason: (BuckleScript Records) computed results:
@@ -33,7 +33,6 @@ Person John: Tom, Mary
 Person Sara: Tom, Mary
 Person Tom: John, Sara
 Person Mary: John, Sara
-
 ```
 (Measured using Node.js v7.7.1 on a MacBook Pro Retina 2,3 GHz Intel Core i7, 16GB RAM)
 

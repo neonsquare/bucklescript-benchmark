@@ -1,6 +1,6 @@
 'use strict';
 
-const {Person, printPerson} = require('./friends')
+const {makePerson, printPerson} = require('./friends')
 
 function addFriend (friend, person) {
     person.friends.push(friend.name)
@@ -8,10 +8,10 @@ function addFriend (friend, person) {
 }
 
 function friends () {
-  let tom = new Person("Tom", 23, []);
-  let mary = new Person("Mary", 25, []);
-  let john = new Person("John", 27, []);
-  let sara = new Person("Sara", 21, []);
+  let tom = makePerson("Tom", 23, []);
+  let mary = makePerson("Mary", 25, []);
+  let john = makePerson("John", 27, []);
+  let sara = makePerson("Sara", 21, []);
   let smiths = [tom, mary];
   let millers = [john, sara];
 

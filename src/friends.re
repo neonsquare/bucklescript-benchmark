@@ -2,7 +2,10 @@ type person = {name: string, age: int, friends: list string};
 
 let makePerson name age friends => {name, age, friends};
 
-let addFriend friend person => {...person, friends: [friend.name, ...person.friends]};
+let addFriend friend person => {
+  ...person,
+  friends: [friend.name, ...person.friends]
+};
 
 let printPerson person => {
   let friends = String.concat ", " person.friends;
