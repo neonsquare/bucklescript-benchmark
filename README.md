@@ -1,6 +1,9 @@
 # BuckleScript Benchmark
 
-This little benchmark demonstrates how static compilation using a compiler like Bucklescript can make very similar looking code run an order of magnitude faster than naively written JS.
+This little benchmark demonstrates how static compilation using a
+compiler like
+[Bucklescript](https://github.com/bloomberg/bucklescript) can make
+very similar looking [Reason](https://facebook.github.io/reason/) code run an order of magnitude faster than naively written JS.
 
 To build the javascript code from the Reason-Code using Bucklescript just run `npm run build`.
 
@@ -44,15 +47,15 @@ JavaScript objects are inherently optimized to get directly modified at runtime.
 
 The second JavaScript  variant demonstrates, that even a direct destructive modification of the Array within the person records themselves may not necessarily give better performance. It also isn't generating exactly the same result, because the order of the friends array ends up reversed.
 
-This leads to an interesting outcome: While languages like TypeScript
+This leads to an interesting outcome: While languages like [TypeScript](http://www.typescriptlang.org)
 can use their static type system to offer better tooling or less
 runtime errors, they still are - by their whole definition -  bound to
-the mutative nature of JavaScript. A language like Reason with a
+the mutative nature of JavaScript. A language like [Reason](https://facebook.github.io/reason/) with a
 compiler like BuckleScript has a much stricter definition. Those constraints open up the door to more freedom in optimizing code and choosing more efficient data structure representations.
 
 ## Where is the price?
 
-BuckleScript doesn't just map records directly on JavaScript objects. It instead  uses a representation of Arrays and any property access is compiled to simple array index accesses. This representation is the reason how the result can deliver such a good runtime performance. Also lists are not mapped 1:1 on Arrays! Their representation uses 2-element arrays where the first element is the list head and the 2nd element is the tail of the list:
+[Bucklescript](https://github.com/bloomberg/bucklescript) doesn't just map records directly on JavaScript objects. It instead  uses a representation of Arrays and any property access is compiled to simple array index accesses. This representation is the reason how the result can deliver such a good runtime performance. Also lists are not mapped 1:1 on Arrays! Their representation uses 2-element arrays where the first element is the list head and the 2nd element is the tail of the list:
 
 ```
 [1,2,3,4]
@@ -70,7 +73,7 @@ names of the fields anymore. If you want to access such record
 instances from JavaScript you need to write accessor functions in
 BuckleScript.
 
-If you want to use idiomatic JS objects in BuckleScript (e.g. for
+If you want to use idiomatic JS objects in [Bucklescript](https://github.com/bloomberg/bucklescript) (e.g. for
 interoperability with JS libs) - you can use the FFI (Foreign Function
 Interface) of BuckleScript. This FFI is what makes a big difference to
 languages like TypeScript: When writing pure BuckleScript
