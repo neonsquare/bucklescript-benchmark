@@ -62,8 +62,23 @@ BuckleScript doesn't just map records directly on JavaScript objects. It instead
 
 This makes pushing a new element onto a list a constant timed operation (just allocate a new "CONS-Pair" with the new head item and the old list as tail).
 
-On the other side: If records and lists are structured this way, they are more difficult to handle in arbitrary JS code or within a debugging session. You lose the easy runtime introspectability of plain javascript objects. Blunt said: you do not directly see the names of the fields anymore. If you want to access such record instances from JavaScript you need to write accessor functions in BuckleScript.
+On the other side: If records and lists are structured this way, they
+are more difficult to handle in arbitrary JS code or within a
+debugging session. You lose the easy runtime introspectability of
+plain javascript objects. Blunt said: you do not directly see the
+names of the fields anymore. If you want to access such record
+instances from JavaScript you need to write accessor functions in
+BuckleScript.
 
+If you want to use idiomatic JS objects in BuckleScript (e.g. for
+interoperability with JS libs) - you can use the FFI (Foreign Function
+Interface) of BuckleScript. This FFI is what makes a big difference to
+languages like TypeScript: When writing pure BuckleScript
+(OCaml/Reason) code, the compiler is free to take any representation
+it likes, as all interoperability is restricted _within_ the languages
+semantics. With the FFI one interfaces the pure written code with the
+JavaScript runtime. This is where BuckleScript has to play by the 
+rules of its host language and accept the dynamic behaviour there.
 
 --
 Jochen H. Schmidt
