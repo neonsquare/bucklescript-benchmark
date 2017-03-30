@@ -95,7 +95,7 @@ choosing more efficient data structure representations.
 ## Hand optimization vs. Compilers
 
 Some readers may note, that this example doesn't show that
-"Bucklescript" generates faster code than JS because one could just
+"Bucklescript" generates faster code than "handwritten" JS because one could just
 manually write code that does the same as what Bucklescript generates.
 This is true, but it isn't practical. While this may work for very small
 toy examples like this benchmark, it never would work for real
@@ -105,8 +105,8 @@ optimization across public API boundaries.
 The main point here is, that a language like Reason defines simple
 language semantics that _abstract away_ any concrete representation of
 code and values so that they can later be changed, improved or
-optimized. Automatically. Or short: An improved BuckleScript compiler
-can generate even faster code out of the given Reason example. Without
+optimized. Automatically. Or short: A future improved BuckleScript compiler
+can generate even faster code out of the same given Reason example. Without
 changing the code itself.
 
 ## Where is the price?
