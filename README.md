@@ -5,38 +5,38 @@ compiler like
 [Bucklescript](https://github.com/bloomberg/bucklescript) can make
 very similar looking [Reason](https://facebook.github.io/reason/) code run an order of magnitude faster than naively written JS.
 
-# Descriptions of the Code-Variants:
+## Descriptions of the Code-Variants:
 
-## `src/friends.re`
+### `src/friends.re`
 A straight forward implementation in Reason.
 
-## `src/friends.js`
+### `src/friends.js`
 Direct adaption from the Reason code. Is using JS objects instead of a
 record. Immutable object update is done with `Object.assign` which is
 similar to the Object spread syntax that is often used when
 transpiling JS with Babel. The array gets updated immutable through
 Array spread.
 
-# Unfair / cheating Variants
+## Unfair / cheating Variants
 
-The following variants implement strategies in JS to make it run faster. In a way those two solutions are "cheating" because don't actually do the same thing. They break rules like immutability or maintainability of code. The purpose here is to show, what price you have to pay if you want similar terse code like the Reason variant but more speed than the first JS variant. Interestingly none of this variants is actually faster then the Reason variant on Node.js (V8)!
+The following variants implement strategies in JS to make it run faster. In a way those solutions are "cheating", because they don't actually do the same thing. They break rules like immutability or maintainability of code. The purpose here is to show, what price you have to pay if you want similar terse code like the Reason variant but more speed than the first JS variant. Interestingly none of this variants is actually faster then the Reason variant on Node.js (V8)!
 
-## `src/friends_literal.js`
+### `src/friends_literal.js`
 Instead of `Object.assign` this variant uses a direct object literal
 and any property gets manually set from the source object. This is
 significantly faster then Object.assign because it sidesteps reading out which fields the object has and looping over them at runtime. But: One has to manually and carefully
 maintain that any possible field in the source object gets set in
 the clone. If you change your record structure you have to change this code. You at least could implement a `clonePerson` method to abstract this out - but it nevertheless is an additional step you have to do that is automaticalle taken care for you in Reason.
 
-## `src/ffriends.js`
+### `src/ffriends.js`
 This variant doesn't behave immutable. Instead the inital person
 objects get modified directly and also the friends-Array is modified
-using `Array.push()` instead of `Array.spread()`. So it clearly breaks one of the essential contracts of this benchmarks. Most interestingly it isn't even faster than the Reason variant on Node.js (V8). If you do not even update the Array at all (just return the initial object unmodified!) - it is still much slower than Reason!
+using `Array.push()` instead of `Array.spread()`. So it clearly breaks one of the essential contracts of this benchmarks. Most interestingly it isn't even faster than the Reason variant on Node.js (V8). If you do not even update the Array at all (just return the initial object unmodified!) - it is still much slower than Reason! Curious why [](#where-is-the-price)? 
 
-## `lib/js/src/friends.js`
+### `lib/js/src/friends.js`
 Well... yeah... thats just the Bucklescript output. Of course it is exactly as fast as the Reason code because it actually is the result of it. Of course you could hand write such code, but it is much more difficult to do and maintain so. You lose the terseness and maintainability of the Reason code and also any further improvements you could get by using future Bucklescript versions.
 
-# Build and Run
+## Build and Run
 
 To build the javascript code from the Reason-Code using Bucklescript just run `npm run build`.
 
@@ -45,12 +45,12 @@ To run the benchmark run `npm start`. The output should be similar to the follow
 ```
 Timings:
 
-Reason: using BuckleScript Records/Lists : 725.181ms
-JS:     using Object.assign              : 8326.349ms
+Reason: using BuckleScript Records/Lists : 710.390ms
+JS:     using Object.assign              : 8263.039ms
 
 Timings of unfair/cheating variants
-JS: using Object and manual key mapping (brittle code!)         : 3114.544ms
-JS: using Object mutation (no immutability!)                    : 1761.832ms
+JS: using Object and manual key mapping (brittle code!)         : 3123.591ms
+JS: using Object mutation (no immutability!)                    : 1721.166ms
 ```
 (Measured using Node.js v7.7.1 on a MacBook Pro Retina 2,3 GHz Intel
 Core i7, 16GB RAM)
