@@ -7,11 +7,6 @@ let addFriend friend person => {
   friends: [friend.name, ...person.friends]
 };
 
-let printPerson person => {
-  let friends = String.concat ", " person.friends;
-  Js.log (Printf.sprintf "Person %s: %s" person.name friends)
-};
-
 let friends () => {
   let tom = makePerson "Tom" 23 [];
   let mary = makePerson "Mary" 25 [];
@@ -23,5 +18,4 @@ let friends () => {
   smiths := !smiths |> List.map (addFriend john);
   millers := !millers |> List.map (addFriend mary);
   smiths := !smiths |> List.map (addFriend sara);
-  Array.of_list (!millers @ !smiths)
 };

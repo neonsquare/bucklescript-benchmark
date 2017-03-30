@@ -8,11 +8,6 @@ let addFriend = (friend, person) => {
   });
 }
 
-let printPerson = (person) => {
-  let friends = person.friends.join(", ")
-  console.log(`Person ${person.name}: ${friends}`)
-}
-
 function friends () {
   let tom = makePerson("Tom", 23, []);
   let mary = makePerson("Mary", 25, []);
@@ -28,5 +23,5 @@ function friends () {
 }
 
 module.exports = {
-  makePerson, friends, printPerson
+  makePerson, friends
 }

@@ -17,27 +17,16 @@ function bench (name, n, fn) {
 
 const N = 1000000
 console.log("Timings:\n")
-const b1_label = "friends Reason: (BuckleScript Records)"
+const b1_label = "Reason: using BuckleScript Records/Lists "
 const b1 = bench(b1_label, N, FriendsRe.friends)
 
-const b2_label = "friends JS: (Object.assign)"
+const b2_label = "JS:     using Object.assign              "
 const b2 = bench(b2_label, N, FriendsJS.friends)
 
-const b3_label = "friends JS: (Object literal, manual key mapping)"
+console.log("\nTimings of unfair/cheating variants")
+
+const b3_label = "JS: using Object and manual key mapping (brittle code!)         "
 const b3 = bench(b3_label, N, FriendsJS_literal.friends)
 
-const b4_label = "friends JS: (Object mutation)"
+const b4_label = "JS: using Object mutation (no immutability!)                    "
 const b4 = bench(b4_label, N, FriendsFJS.friends)
-
-console.log("\n\n"+b1_label+" computed results:")
-b1.map(FriendsRe.printPerson)
-
-console.log("\n\n"+b2_label+" computed results:")
-b2.map(FriendsJS.printPerson)
-
-console.log("\n\n"+b3_label+" computed results:")
-b3.map(FriendsJS_literal.printPerson)
-
-console.log("\n\n"+b4_label+" computed results:")
-b4.map(FriendsFJS.printPerson)
-

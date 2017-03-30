@@ -1,20 +1,9 @@
 'use strict';
 
-let makePerson = (name, age, friends) => ({name,age,friends})
-
-let addFriend_ = (friend, person) => {
-  return Object.assign({}, person, {
-    friends: [friend.name, ...person.friends]
-  });
-}
+const {makePerson} = require('./friends')
 
 let addFriend = (friend, {name, age, friends}) =>
     ({name, age, friends: [friend.name, ...friends]})
-
-let printPerson = (person) => {
-  let friends = person.friends.join(", ")
-  console.log(`Person ${person.name}: ${friends}`)
-}
 
 function friends () {
   let tom = makePerson("Tom", 23, []);
@@ -27,9 +16,8 @@ function friends () {
   smiths = smiths.map(p=>addFriend(john, p))
   millers = millers.map(p=>addFriend(mary, p))
   smiths = smiths.map(p=>addFriend(sara, p))
-  return millers.concat(smiths);
 }
 
 module.exports = {
-  makePerson, friends, printPerson
+  friends
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-const {makePerson, printPerson} = require('./friends')
+const {makePerson} = require('./friends')
 
 function addFriend (friend, person) {
     person.friends.push(friend.name)
@@ -19,9 +19,8 @@ function friends () {
   smiths = smiths.map(p=>addFriend(john, p))
   millers = millers.map(p=>addFriend(mary, p))
   smiths = smiths.map(p=>addFriend(sara, p))
-  return millers.concat(smiths);
 }
 
 module.exports = {
-  friends, printPerson
+  friends
 }

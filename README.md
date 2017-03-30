@@ -43,33 +43,6 @@ friends JS: (Object.assign): 11636.720ms
 friends JS: (Object literal, manual key mapping): 4594.644ms
 friends JS: (Object mutation): 2082.998ms
 
-
-friends Reason: (BuckleScript Records) computed results:
-Person John: Mary, Tom
-Person Sara: Mary, Tom
-Person Tom: Sara, John
-Person Mary: Sara, John
-
-
-friends JS: (Object.assign) computed results:
-Person John: Mary, Tom
-Person Sara: Mary, Tom
-Person Tom: Sara, John
-Person Mary: Sara, John
-
-
-friends JS: (Object literal, manual key mapping) computed results:
-Person John: Mary, Tom
-Person Sara: Mary, Tom
-Person Tom: Sara, John
-Person Mary: Sara, John
-
-
-friends JS: (Object mutation) computed results:
-Person John: Tom, Mary
-Person Sara: Tom, Mary
-Person Tom: John, Sara
-Person Mary: John, Sara
 ```
 (Measured using Node.js v7.7.1 on a MacBook Pro Retina 2,3 GHz Intel
 Core i7, 16GB RAM)
@@ -80,14 +53,16 @@ Of course the timings depend on the used JS engine!
 
 Functional programming patterns are more and more common in modern Javascript projects. Strictly controlling side effects is an important aspect when applying them. Directly modifying data structures makes it harder to follow the state flow of complex programs. So instead of this, a functional program makes use of immutable datastructures.
 
-JavaScript objects are inherently optimized to get directly modified at runtime. Though, operations like `Object.assign` or Syntax extensions like Object spread or Array spread make it very easy to code in a style that implements immutable datastructures ad hoc from plain javascript objects and arrays. Typical use cases are state transformations implemented in Redux reducers. The example used in this benchmark uses this style to demonstrate how this can lead to bad performance compared to code that is compiled using a compiler that knows that its datastructures actually really are immutable a priori.
+JavaScript objects are inherently optimized to get directly modified at runtime. Though, operations like `Object.assign` or Syntax extensions like Object spread or Array spread make it very easy to code in a style that implements immutable datastructures ad hoc from plain javascript objects and arrays. Typical use cases are state transformations implemented in Redux reducers. The example used in this benchmark uses this style to demonstrate how this can lead to bad performance compared to code that is compiled using a compiler that knows that its datastructures actually really are immutable and that the field offsets are known by compile time. This means there is very cheap field lookup and cloning a whole record doesn't need to access individual keys like in JavaScript.
 
 The second JavaScript  variant demonstrates, that even a direct destructive modification of the Array within the person records themselves may not necessarily give better performance. It also isn't generating exactly the same result, because the order of the friends array ends up reversed.
 
-This leads to an interesting outcome: While languages like [TypeScript](http://www.typescriptlang.org)
+*This leads to an interesting outcome: While languages like [TypeScript](http://www.typescriptlang.org)
 can use their static type system to offer better tooling or less
 runtime errors, they still are - by their whole definition -  bound to
-the mutative nature of JavaScript. A language like [Reason](https://facebook.github.io/reason/) with a
+the mutative nature of JavaScript*
+
+A language like [Reason](https://facebook.github.io/reason/) with a
 compiler like BuckleScript has a much stricter definition. Those
 constraints open up the door to more freedom in optimizing code and
 choosing more efficient data structure representations.
@@ -103,7 +78,7 @@ programs. It is nearly impossible to sustain this kind of hand
 optimization across public API boundaries.
 
 The main point here is, that a language like Reason defines simple
-language semantics that _abstract away_ any concrete representation of
+language semantics of OCaml that _abstract away_ any concrete representation of
 code and values so that they can later be changed, improved or
 optimized. Automatically. Or short: A future improved BuckleScript compiler
 can generate even faster code out of the same given Reason example. Without
