@@ -38,11 +38,12 @@ To run the benchmark run `npm start`. The output should be similar to the follow
 ```
 Timings:
 
-friends Reason: (BuckleScript Records): 981.740ms
-friends JS: (Object.assign): 11636.720ms
-friends JS: (Object literal, manual key mapping): 4594.644ms
-friends JS: (Object mutation): 2082.998ms
+Reason: using BuckleScript Records/Lists : 725.181ms
+JS:     using Object.assign              : 8326.349ms
 
+Timings of unfair/cheating variants
+JS: using Object and manual key mapping (brittle code!)         : 3114.544ms
+JS: using Object mutation (no immutability!)                    : 1761.832ms
 ```
 (Measured using Node.js v7.7.1 on a MacBook Pro Retina 2,3 GHz Intel
 Core i7, 16GB RAM)
@@ -57,10 +58,10 @@ JavaScript objects are inherently optimized to get directly modified at runtime.
 
 The second JavaScript  variant demonstrates, that even a direct destructive modification of the Array within the person records themselves may not necessarily give better performance. It also isn't generating exactly the same result, because the order of the friends array ends up reversed.
 
-*This leads to an interesting outcome: While languages like [TypeScript](http://www.typescriptlang.org)
+**This leads to an interesting outcome: While languages like [TypeScript](http://www.typescriptlang.org)
 can use their static type system to offer better tooling or less
 runtime errors, they still are - by their whole definition -  bound to
-the mutative nature of JavaScript*
+the mutative nature of JavaScript**
 
 A language like [Reason](https://facebook.github.io/reason/) with a
 compiler like BuckleScript has a much stricter definition. Those
