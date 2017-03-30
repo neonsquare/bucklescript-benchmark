@@ -31,7 +31,7 @@ the clone. If you change your record structure you have to change this code. You
 ### `src/ffriends.js`
 This variant doesn't behave immutable. Instead the inital person
 objects get modified directly and also the friends-Array is modified
-using `Array.push()` instead of `Array.spread()`. So it clearly breaks one of the essential contracts of this benchmarks. Most interestingly it isn't even faster than the Reason variant on Node.js (V8). If you do not even update the Array at all (just return the initial object unmodified!) - it is still much slower than Reason! Curious why [](#where-is-the-price)? 
+using `Array.push()` instead of `Array.spread()`. So it clearly breaks one of the essential contracts of this benchmarks. Most interestingly it isn't even faster than the Reason variant on Node.js (V8). If you do not even update the Array at all (just return the initial object unmodified!) - it is still much slower than Reason! Curious why? [Read here!](#where-is-the-price) 
 
 ### `lib/js/src/friends.js`
 Well... yeah... thats just the Bucklescript output. Of course it is exactly as fast as the Reason code because it actually is the result of it. Of course you could hand write such code, but it is much more difficult to do and maintain so. You lose the terseness and maintainability of the Reason code and also any further improvements you could get by using future Bucklescript versions.
