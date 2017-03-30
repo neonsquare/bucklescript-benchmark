@@ -17,17 +17,24 @@ similar to the Object spread syntax that is often used when
 transpiling JS with Babel. The array gets updated immutable through
 Array spread.
 
+# Unfair / cheating Variants
+
+The following variants implement strategies in JS to make it run faster. In a way those two solutions are "cheating" because don't actually do the same thing. They break rules like immutability or maintainability of code. The purpose here is to show, what price you have to pay if you want similar terse code like the Reason variant but more speed than the first JS variant. Interestingly none of this variants is actually faster then the Reason variant on Node.js (V8)!
+
 ## `src/friends_literal.js`
 Instead of `Object.assign` this variant uses a direct object literal
 and any property gets manually set from the source object. This is
-significantly faster then Object.assign, but one has to manually
-maintain that any possible property in the source object gets set in
-the clone.
+significantly faster then Object.assign because it sidesteps reading out which fields the object has and looping over them at runtime. But: One has to manually and carefully
+maintain that any possible field in the source object gets set in
+the clone. If you change your record structure you have to change this code. You at least could implement a `clonePerson` method to abstract this out - but it nevertheless is an additional step you have to do that is automaticalle taken care for you in Reason.
 
 ## `src/ffriends.js`
 This variant doesn't behave immutable. Instead the inital person
 objects get modified directly and also the friends-Array is modified
-using `Array.push()` instead of `Array.spread()`.
+using `Array.push()` instead of `Array.spread()`. So it clearly breaks one of the essential contracts of this benchmarks. Most interestingly it isn't even faster than the Reason variant on Node.js (V8). If you do not even update the Array at all (just return the initial object unmodified!) - it is still much slower than Reason!
+
+## `lib/js/src/friends.js`
+Well... yeah... thats just the Bucklescript output. Of course it is exactly as fast as the Reason code because it actually is the result of it. Of course you could hand write such code, but it is much more difficult to do and maintain so. You lose the terseness and maintainability of the Reason code and also any further improvements you could get by using future Bucklescript versions.
 
 # Build and Run
 
